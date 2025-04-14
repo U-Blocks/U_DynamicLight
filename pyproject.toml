@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "endstone-u-dynamic-light"
+version = "250414"
+description = "Light on!!!"
+dependencies = [
+    "mcbe-binarystream"
+]
+
+[project.entry-points."endstone"]
+u_dynamic_light = "endstone_u_dynamic_light:u_dynamic_light"

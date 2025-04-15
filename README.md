@@ -8,23 +8,23 @@
 ![Total Git clones](https://img.shields.io/badge/dynamic/json?label=Total%20Git%20clones&query=$&url=https://cdn.jsdelivr.net/gh/umarurize/U_DynamicLight@master/clone_count.txt&color=brightgreen)
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/umarurize/U_DynamicLight/total)
 
-### Introductions
+### 🔔Introductions
 * **30+ glowing items support**
 * **Offhand mode support**
 * **Localized languages support**
 * **No damage to data**: Since dynamic light implemented through network packets delivery, it will not do any damage to your Bedrock level.
 
-### Installation
+### 🔨Installation
 Put `.whl` file into the endstone plugins folder, and then start the server. 
 
 Enter the command `/offhand` to switch glowing items which are allowed by the server to offhand. 
 
 If a player both has glowing items in mainhand and offhand, the light emission level with be set to the greater of the two.
 
-### Download
+### 💻Download
 Now, you can get the release version form this repo or <code><a href="https://www.minebbs.com/resources/u-dynamiclight.11035/"><img height="20" src="https://github.com/umarurize/umaru-cdn/blob/main/images/minebbs.png" alt="Minebbs" /></a>&nbsp;Minebbs</code>.
 
-### File structure
+### 📁File structure
 ```
 Plugins/
 ├─ u-dynamic-light/
@@ -34,9 +34,9 @@ Plugins/
 │  │  ├─ en_US.json
 ```
 
-### Configurations
+### 📝Configurations
 `config.json`
-```json
+```json5
 {
     "item_allow_offhand": [
         "minecraft:torch",
@@ -47,7 +47,7 @@ Plugins/
 ```
 Server owner can edit and save `config.json`，and enter the command `/ud` to reload configurations/
 
-### Languages
+### 🌐Languages
 - [x] `zh_CN`
 - [x] `en_US`
 
@@ -55,12 +55,12 @@ Off course you can add your mother language to U-DynamicLight, just creat `XX_XX
 
 You can also creat a PR to this repo to make your mother language one of the official languages of U-DynamicLight.
 
-### Glowing items
+### 💥Glowing items
 <div style="width: 100%; text-align: center;">
   <img src="https://github.com/umarurize/U_DynamicLight/blob/master/images/item_list.png" style="max-width: 100%; height: auto;">
 </div>
 
-### Specially thanks
+### :heart_eyes:heaSpecially thanks
 - [x] [@zimuya4153](https://github.com/zimuya4153)
 - [x] [@KobeBryant114514](https://github.com/KobeBryant114514)
 

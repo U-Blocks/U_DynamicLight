@@ -4,7 +4,9 @@
 
 [![Minecraft - Version](https://img.shields.io/badge/minecraft-v1.21.71_(Bedrock)-black)](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs)
 [![PyPI - Version](https://img.shields.io/pypi/v/endstone)](https://pypi.org/project/endstone)
+
 ![Total Git clones](https://img.shields.io/badge/dynamic/json?label=Total%20Git%20clones&query=$&url=https://cdn.jsdelivr.net/gh/umarurize/U_DynamicLight@master/clone_count.txt&color=brightgreen)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/umarurize/U_DynamicLight/total)
 
 ### Introductions
 * **30+ glowing items support**
@@ -15,7 +17,7 @@
 ### Installation
 Put `.whl` file into the endstone plugins folder, and then start the server. 
 
-Enter the command `offhand` to switch glowing items to offhand. 
+Enter the command `/offhand` to switch glowing items which are allowed by the server to offhand. 
 
 If a player both has glowing items in mainhand and offhand, the light emission level with be set to the greater of the two.
 
@@ -26,10 +28,24 @@ Now, you can get the release version form this repo or <code><a href="https://ww
 ```
 Plugins/
 ├─ u-dynamic-light/
+│  ├─ config.json
 │  ├─ lang/
 │  │  ├─ zh_CN.json
 │  │  ├─ en_US.json
 ```
+
+### Configurations
+`config.json`
+```json
+{
+    "item_allow_offhand": [
+        "minecraft:torch",
+        "minecraft:soul_torch"
+    ],  // items are allowed to be switched to offhand
+    "refresh_tick": 20 // light refresh interval in ticks
+}
+```
+Server owner can edit and save `config.json`，and enter the command `/ud` to reload configurations/
 
 ### Languages
 - [x] `zh_CN`

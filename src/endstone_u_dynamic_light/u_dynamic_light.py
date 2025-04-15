@@ -1,3 +1,4 @@
+import json
 import math
 import os
 
@@ -22,11 +23,30 @@ lang_dir = os.path.join(first_dir, 'lang')
 if not os.path.exists(lang_dir):
     os.mkdir(lang_dir)
 
+config_data_file_path = os.path.join(first_dir, 'config.json')
+
 
 class u_dynamic_light(Plugin):
     api_version = '0.7'
 
     def on_enable(self):
+        # Load config data
+        if not os.path.exists(config_data_file_path):
+            with open(config_data_file_path, 'w', encoding='utf-8') as f:
+                config_data = {
+                    'item_allow_offhand': [
+                        'minecraft:torch',
+                        'minecraft:soul_torch'
+                    ],
+                    'refresh_tick': 1
+                }
+                json_str = json.dumps(config_data, indent=4, ensure_ascii=False)
+                f.write(json_str)
+        else:
+            with open(config_data_file_path, 'r', encoding='utf-8') as f:
+                config_data = json.loads(f.read())
+        self.config_data = config_data
+
         # Load lang data
         self.lang_data = lang.load_lang(self, lang_dir)
 
@@ -67,7 +87,7 @@ class u_dynamic_light(Plugin):
         self.may_glowing_item_type_list = [key for key in self.may_glowing_item_type_dict.keys()]
 
         self.recorder = {}
-        self.server.scheduler.run_task(self, self.light_manage, delay=0, period=1)
+        self.server.scheduler.run_task(self, self.light_manage, delay=0, period=self.config_data['refresh_tick'])
         self.logger.info(f'{ColorFormat.YELLOW}U-DynamicLight is enabled...')
 
     commands = {
@@ -90,7 +110,7 @@ class u_dynamic_light(Plugin):
         },
         'u_dynamic_light.command.ud': {
             'description': 'Call out main form of U-DynamicLight',
-            'default': True
+            'default': 'Operator'
         }
 
     }
@@ -101,40 +121,43 @@ class u_dynamic_light(Plugin):
                 sender.send_message(f'{ColorFormat.RED}This command can only be executed by a player...')
                 return
 
-            if (sender.inventory.item_in_main_hand is None
-                    and sender.inventory.item_in_off_hand is None):
+            if sender.inventory.item_in_main_hand is None:
                 sender.send_message(f'{ColorFormat.RED}{self.get_text(sender, "switch.message.fail_1")}')
                 return
-
-            if sender.inventory.item_in_main_hand is not None:
-                type_main_hand = sender.inventory.item_in_main_hand.type
-                if type_main_hand not in self.may_glowing_item_type_list:
-                    sender.send_message(f'{ColorFormat.RED}{self.get_text(sender, "switch.message.fail_2")}')
-                    return
-                amount_main_hand = sender.inventory.item_in_main_hand.amount
-                itemstack_for_off_hand = ItemStack(
-                    type=type_main_hand,
-                    amount=amount_main_hand
-                )
             else:
-                itemstack_for_off_hand = None
-
-            if sender.inventory.item_in_off_hand is not None:
-                type_off_hand = sender.inventory.item_in_off_hand.type
-                amount_off_hand = sender.inventory.item_in_off_hand.amount
-                itemstack_for_main_hand = ItemStack(
-                    type=type_off_hand,
-                    amount=amount_off_hand
-                )
-            else:
-                itemstack_for_main_hand = None
-
-            sender.inventory.item_in_off_hand = itemstack_for_off_hand
-            sender.inventory.item_in_main_hand = itemstack_for_main_hand
-            sender.send_message(f'{ColorFormat.YELLOW}Successfully switch items to the offhand...')
+                    type_main_hand = sender.inventory.item_in_main_hand.type
+                    if type_main_hand not in self.config_data['item_allow_offhand']:
+                        sender.send_message(f'{ColorFormat.RED}{self.get_text(sender, "switch.message.fail_2")}')
+                        if len(self.config_data['item_allow_offhand']) != 0:
+                            sender.send_message(f'{ColorFormat.YELLOW}{self.get_text(sender, "switch.message.fail_3")}')
+                            for i in self.config_data['item_allow_offhand']:
+                                sender.send_message(f'{ColorFormat.YELLOW}- {i}')
+                        return
+                    amount_main_hand = sender.inventory.item_in_main_hand.amount
+                    itemstack_for_off_hand = ItemStack(
+                        type=type_main_hand,
+                        amount=amount_main_hand
+                    )
+                    itemstack_for_main_hand = None
+                    sender.inventory.item_in_off_hand = itemstack_for_off_hand
+                    sender.inventory.item_in_main_hand = itemstack_for_main_hand
+                    sender.send_message(f'{ColorFormat.YELLOW}Successfully switch items to the offhand...')
 
         if command.name == 'ud':
-            pass
+            form = ActionForm(
+                title=f'{ColorFormat.BOLD}{ColorFormat.LIGHT_PURPLE}U-DynamicLight',
+                content=f'{ColorFormat.GREEN}{self.get_text(sender, "form.content")}',
+                on_close=None
+            )
+            form.add_button(f'{ColorFormat.YELLOW}{self.get_text(sender, "form.button")}',
+                            icon='textures/ui/settings_glyph_color_2x', on_click=self.reload_config_data)
+            sender.send_form(form)
+
+    # Reload configurations
+    def reload_config_data(self, player: Player) -> None:
+        with open(config_data_file_path, 'r', encoding='utf-8') as f:
+            self.config_data = json.loads(f.read())
+        player.send_message(f'{ColorFormat.YELLOW}{self.get_text(player, "reload.message.success")}')
 
     def light_on(self, player: Player, pos: list, dim: Dimension, runtime_id:int) -> None:
         bs = BinaryStream()
@@ -197,8 +220,7 @@ class u_dynamic_light(Plugin):
                 block = dim.get_block_at(pos[0], pos[1], pos[2])
 
                 if block.type == 'minecraft:air':
-                    # Since this plugin do not allowed unglowing items to be switched to offhand
-                    # There are four possible situations
+                    # In summary, there are five possible cases.
                     # Case 1: glowing items in mainhand & nothing in offhand
                     if (
                             (online_player.inventory.item_in_main_hand is not None
@@ -207,7 +229,17 @@ class u_dynamic_light(Plugin):
                             and online_player.inventory.item_in_off_hand is None
                     ):
                         light_emission_level = self.may_glowing_item_type_dict[online_player.inventory.item_in_main_hand.type]
-                    # Case 2: glowing items in offhand & nothing in main hand
+                    # Case2: glowing items in mainhand & unglowing legacy items in offhand
+                    elif (
+                            (online_player.inventory.item_in_main_hand is not None
+                                and online_player.inventory.item_in_main_hand.type in self.may_glowing_item_type_list
+                            )
+                        and
+                            (online_player.inventory.item_in_off_hand is not None
+                                and online_player.inventory.item_in_off_hand.type not in self.may_glowing_item_type_list)
+                    ):
+                        light_emission_level = self.may_glowing_item_type_dict[online_player.inventory.item_in_main_hand.type]
+                    # Case 3: glowing items in offhand & nothing in main hand
                     elif (
                             (online_player.inventory.item_in_off_hand is not None
                                 and online_player.inventory.item_in_off_hand.type in self.may_glowing_item_type_list
@@ -215,7 +247,7 @@ class u_dynamic_light(Plugin):
                             and online_player.inventory.item_in_main_hand is None
                     ):
                         light_emission_level = self.may_glowing_item_type_dict[online_player.inventory.item_in_off_hand.type]
-                    # Case 3: glowing items in offhand & unglowing items in main hand
+                    # Case 4: glowing items in offhand & unglowing items in main hand
                     elif (
                             (online_player.inventory.item_in_off_hand is not None
                                 and online_player.inventory.item_in_off_hand.type in self.may_glowing_item_type_list
@@ -227,7 +259,7 @@ class u_dynamic_light(Plugin):
 
                     ):
                         light_emission_level = self.may_glowing_item_type_dict[online_player.inventory.item_in_off_hand.type]
-                    # Case 4: glowing items in mainhand & glowing items in offhand
+                    # Case 5: glowing items in mainhand & glowing items in offhand
                     else:
                         light_emission_level_main_hand = self.may_glowing_item_type_dict[online_player.inventory.item_in_main_hand.type]
                         light_emission_level_off_hand = self.may_glowing_item_type_dict[online_player.inventory.item_in_off_hand.type]

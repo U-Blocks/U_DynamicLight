@@ -46,7 +46,7 @@ You can also creat a PR to this repo to make your mother language one of the off
 
 ### Specially thanks
 - [x] [@zimuya4153](https://github.com/zimuya4153)
-- [x] [@zimuya4153](https://github.com/KobeBryant114514)
+- [x] [@KobeBryant114514](https://github.com/KobeBryant114514)
 
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=GlacieTeam&repo=BinaryStream-Python)](https://github.com/GlacieTeam/BinaryStream-Python)
 

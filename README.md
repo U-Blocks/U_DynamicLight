@@ -60,7 +60,7 @@ You can also creat a PR to this repo to make your mother language one of the off
   <img src="https://github.com/umarurize/U_DynamicLight/blob/master/images/item_list.png" style="max-width: 100%; height: auto;">
 </div>
 
-### :heart_eyes:heaSpecially thanks
+### :heart_eyes:Specially thanks
 - [x] [@zimuya4153](https://github.com/zimuya4153)
 - [x] [@KobeBryant114514](https://github.com/KobeBryant114514)
 

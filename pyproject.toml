@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "endstone-u-dynamic-light"
-version = "250415"
+version = "250619"
 description = "Light on!!!"
 dependencies = [
     "mcbe-binarystream"

@@ -2,14 +2,16 @@ import os
 import json
 
 
-def load_langs(lang_dir: str) -> dict:
+def load_lang(lang_dir: str) -> dict:
     zh_CN_lang_file_path = os.path.join(lang_dir, 'zh_CN.json')
     en_US_lang_file_path = os.path.join(lang_dir, 'en_US.json')
 
     if not os.path.exists(zh_CN_lang_file_path):
         zh_CN = {
-            'form.content': '请选择操作...',
-            'form.button': '重载配置文件...',
+            'form.textinput.label': '当前光刷新间隔',
+            'form.textinput.placeholder': '请输入一个正整数...',
+            'form.submit_button': '重载',
+            'reload.message.fail': '表单解析错误, 请按提示正确填写...',
             'reload.message.success': '重载配置文件成功...',
             'switch.message.fail_1': '你的主手上没有物品...',
             'switch.message.fail_2': '此物品不能被切换至副手...',
@@ -22,8 +24,10 @@ def load_langs(lang_dir: str) -> dict:
 
     if not os.path.exists(en_US_lang_file_path):
         en_US = {
-            'form.content': 'Please select a function...',
-            'form.button': 'Reload configurations',
+            'form.textinput.label': 'Current light refresh interval',
+            'form.textinput.placeholder': 'Input a positive integer...',
+            'form.submit_button': 'Reload',
+            'reload.message.fail': 'The form is parsed incorrectly, please follow the prompts to fill in correctly...',
             'reload.message.success': 'Successfully reload configurations...',
             'switch.message.fail_1': 'You have no item(s) in your mainhand...',
             'switch.message.fail_2': 'This item cannot be switched to offhand...',
@@ -34,7 +38,7 @@ def load_langs(lang_dir: str) -> dict:
             json_str = json.dumps(en_US, indent=4, ensure_ascii=False)
             f.write(json_str)
 
-    langs = {}
+    lang_data = {}
 
     for lang in os.listdir(lang_dir):
         lang_name = lang.strip('.json')
@@ -42,7 +46,7 @@ def load_langs(lang_dir: str) -> dict:
         lang_file_path = os.path.join(lang_dir, lang)
 
         with open(lang_file_path, 'r', encoding='utf-8') as f:
-            langs[lang_name] = json.loads(f.read())
+            lang_data[lang_name] = json.loads(f.read())
 
-    return langs
+    return lang_data
 

@@ -4,13 +4,13 @@ import os
 
 from binarystream import BinaryStream
 
-from endstone_u_dynamic_light.lang import load_langs
+from endstone_u_dynamic_light.lang import load_lang
 
 from endstone import Player, ColorFormat
 
 from endstone.plugin import Plugin
 from endstone.level import Dimension
-from endstone.form import ActionForm
+from endstone.form import ModalForm, Toggle, TextInput
 from endstone.inventory import ItemStack
 from endstone.command import Command, CommandSender
 
@@ -23,14 +23,14 @@ if not os.path.exists(first_dir):
 
 config_data_file_path = os.path.join(first_dir, 'config.json')
 
-lang_dir = os.path.join(first_dir, 'langs')
+lang_dir = os.path.join(first_dir, 'lang')
 
 if not os.path.exists(lang_dir):
     os.mkdir(lang_dir)
 
 
 class u_dynamic_light(Plugin):
-    api_version = '0.7'
+    api_version = '0.10'
 
     def __init__(self):
         super().__init__()
@@ -39,10 +39,39 @@ class u_dynamic_light(Plugin):
         if not os.path.exists(config_data_file_path):
             with open(config_data_file_path, 'w', encoding='utf-8') as f:
                 config_data = {
-                    'item_allow_offhand': [
-                        'minecraft:torch',
-                        'minecraft:soul_torch'
-                    ],
+                    'item_type_id_allow_in_offhand': {
+                        'minecraft:torch': True,
+                        'minecraft:soul_torch': True,
+                        'minecraft:redstone_torch': True,
+                        'minecraft:shroomlight': False,
+                        'minecraft:glow_berries': False,
+                        'minecraft:glowstone': False,
+                        'minecraft:lit_pumpkin': False,
+                        'minecraft:campfire': False,
+                        'minecraft:soul_campfire': False,
+                        'minecraft:end_rod': False,
+                        'minecraft:lantern': False,
+                        'minecraft:soul_lantern': False,
+                        'minecraft:sea_lantern': False,
+                        'minecraft:ochre_froglight': False,
+                        'minecraft:pearlescent_froglight': False,
+                        'minecraft:verdant_froglight': False,
+                        'minecraft:crying_obsidian': False,
+                        'minecraft:beacon': False,
+                        'minecraft:lava_bucket': False,
+                        'minecraft:ender_chest': False,
+                        'minecraft:glow_lichen': False,
+                        'minecraft:enchanting_table': False,
+                        'minecraft:small_amethyst_bud': False,
+                        'minecraft:large_amethyst_bud': False,
+                        'minecraft:amethyst_cluster': False,
+                        'minecraft:brown_mushroom': False,
+                        'minecraft:sculk_catalyst': False,
+                        'minecraft:conduit': False,
+                        'minecraft:medium_amethyst_bud': False,
+                        'minecraft:dragon_egg': False,
+                        'minecraft:magma': False
+                    },
                     'refresh_tick': 1
                 }
 
@@ -56,7 +85,7 @@ class u_dynamic_light(Plugin):
         self.config_data = config_data
 
         # Load langs
-        self.langs = load_langs(lang_dir)
+        self.lang_data = load_lang(lang_dir)
 
         self.may_glowing_item_type_dict = {
             'minecraft:torch': 14,
@@ -146,21 +175,39 @@ class u_dynamic_light(Plugin):
 
                 return
             else:
-                    item_in_main_hand_type = sender.inventory.item_in_main_hand.type
+                    item_in_main_hand_type_id = sender.inventory.item_in_main_hand.type.id
 
-                    if item_in_main_hand_type.id not in self.config_data['item_allow_offhand']:
+                    if not self.config_data['item_type_id_allow_in_offhand'].get(item_in_main_hand_type_id):
                         sender.send_message(
                             f'{ColorFormat.RED}'
                             f'{self.get_text(sender, "switch.message.fail_2")}'
                         )
 
-                        if len(self.config_data['item_allow_offhand']) != 0:
+                        item_allow_offhand_name_list = []
+
+                        for item_type_id, bool_value in self.config_data['item_type_id_allow_in_offhand'].items():
+                            if bool_value:
+                                itemstack = ItemStack(
+                                    type=item_type_id
+                                )
+
+                                item_type_translation_key = itemstack.type.translation_key
+
+                                item_name = self.server.language.translate(
+                                    item_type_translation_key,
+                                    None,
+                                    sender.locale
+                                )
+
+                                item_allow_offhand_name_list.append(item_name)
+
+                        if len(item_allow_offhand_name_list) != 0:
                             sender.send_message(
                                 f'{ColorFormat.YELLOW}'
                                 f'{self.get_text(sender, "switch.message.fail_3")}'
                             )
 
-                            for i in self.config_data['item_allow_offhand']:
+                            for i in item_allow_offhand_name_list:
                                 sender.send_message(
                                     f'{ColorFormat.YELLOW}- {i}'
                                 )
@@ -170,8 +217,8 @@ class u_dynamic_light(Plugin):
                     item_in_main_hand_amount = sender.inventory.item_in_main_hand.amount
 
                     itemstack_for_off_hand = ItemStack(
-                        type=item_in_main_hand_type,
-                        amount=item_in_main_hand_amount
+                        type=item_in_main_hand_type_id,
+                        amount=item_in_main_hand_amount,
                     )
 
                     if sender.inventory.item_in_off_hand is None:
@@ -195,31 +242,107 @@ class u_dynamic_light(Plugin):
                     )
 
         if command.name == 'ud':
-            form = ActionForm(
-                title=f'{ColorFormat.BOLD}{ColorFormat.LIGHT_PURPLE}'
-                      f'U-DynamicLight',
-                content=f'{ColorFormat.GREEN}'
-                        f'{self.get_text(sender, "form.content")}',
-                on_close=None
-            )
+            if not isinstance(sender, Player):
+                sender.send_message(
+                    f'{ColorFormat.RED}'
+                    f'This command can only be executed by a player...'
+                )
 
-            form.add_button(f'{ColorFormat.YELLOW}'
-                            f'{self.get_text(sender, "form.button")}',
-                            icon='textures/ui/settings_glyph_color_2x',
-                            on_click=self.reload_config_data
-                            )
+                return
 
-            sender.send_form(form)
+            if sender.is_op:
+                textinput = TextInput(
+                    label=f'{ColorFormat.GREEN}'
+                          f'{self.get_text(sender, "form.textinput.label")}: '
+                          f'{ColorFormat.WHITE}'
+                          f'{self.config_data["refresh_tick"]} (tick)',
+                    placeholder=self.get_text(sender, "form.textinput.placeholder"),
+                    default_value=str(self.config_data['refresh_tick'])
+                )
+
+                controls = [textinput]
+
+                for item_type_id, bool_value in self.config_data['item_type_id_allow_in_offhand'].items():
+                    itemstack = ItemStack(
+                        type=item_type_id
+                    )
+
+                    item_translation_key = itemstack.type.translation_key
+
+                    item_name = self.server.language.translate(
+                        item_translation_key,
+                        None,
+                        sender.locale
+                    )
+
+                    controls.append(
+                        Toggle(
+                            label=f'{ColorFormat.GREEN}'
+                                  f'{item_name}',
+                            default_value=bool_value
+                        )
+                    )
+
+                form = ModalForm(
+                    title=f'{ColorFormat.BOLD}{ColorFormat.LIGHT_PURPLE}'
+                          f'U-DynamicLight',
+                    controls=controls,
+                    submit_button=f'{ColorFormat.YELLOW}'
+                                  f'{self.get_text(sender, "form.submit_button")}',
+                    on_close=None
+                )
+
+                def on_submit(s: CommandSender, json_str: str):
+                    data = json.loads(json_str)
+
+                    try:
+                        update_refresh_tick = int(data[0])
+                    except:
+                        s.send_message(
+                            f'{ColorFormat.RED}'
+                            f'{self.get_text(s, "reload.message.fail")}'
+                        )
+
+                        return
+
+                    if update_refresh_tick <= 0:
+                        s.send_message(
+                            f'{ColorFormat.RED}'
+                            f'{self.get_text(s, "reload.message.fail")}'
+                        )
+
+                        return
+
+                    update_bool_value_list = data[1:]
+
+                    index = 0
+
+                    for item_type_id in self.config_data['item_type_id_allow_in_offhand'].keys():
+                        self.config_data['item_type_id_allow_in_offhand'][item_type_id] = update_bool_value_list[index]
+
+                        index += 1
+
+                    self.save_config_data()
+
+                    s.send_message(
+                        f'{ColorFormat.YELLOW}'
+                        f'{self.get_text(s, "reload.message.success")}'
+                    )
+
+                form.on_submit = on_submit
+
+                sender.send_form(form)
 
     # Reload configurations
-    def reload_config_data(self, player: Player) -> None:
-        with open(config_data_file_path, 'r', encoding='utf-8') as f:
-            self.config_data = json.loads(f.read())
+    def save_config_data(self) -> None:
+        with open(config_data_file_path, 'w', encoding='utf-8') as f:
+            json_str = json.dumps(
+                self.config_data,
+                indent=4,
+                ensure_ascii=False
+            )
 
-        player.send_message(
-            f'{ColorFormat.YELLOW}'
-            f'{self.get_text(player, "reload.message.success")}'
-        )
+            f.write(json_str)
 
     def light_on(self, player: Player, pos: list, dim: Dimension, runtime_id:int) -> None:
         bs = BinaryStream()
@@ -398,13 +521,13 @@ class u_dynamic_light(Plugin):
         player_lang = player.locale
 
         try:
-            if self.langs.get(player_lang) is None:
-                text_value = self.langs['en_US'][text_key]
+            if self.lang_data.get(player_lang) is None:
+                text_value = self.lang_data['en_US'][text_key]
             else:
-                if self.langs[player_lang].get(text_key) is None:
-                    text_value = self.langs['en_US'][text_key]
+                if self.lang_data[player_lang].get(text_key) is None:
+                    text_value = self.lang_data['en_US'][text_key]
                 else:
-                    text_value = self.langs[player_lang][text_key]
+                    text_value = self.lang_data[player_lang][text_key]
 
             return text_value
         except Exception as e:

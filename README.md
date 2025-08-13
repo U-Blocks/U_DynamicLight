@@ -12,6 +12,14 @@
 * **No damage to data**: Since dynamic light implemented through network packets delivery, it will not do any damage to your Bedrock level.
 
 ### 🔨Installation
+<details>
+<summary>Check your Endstone's version</summary>
+    
+- [x] U-DynamicLight [<250619] adapts Endstone 0.7.2 - 0.8.2
+- [x] U-DynamicLight [>=250619] adapts Endstone 0.9.0+
+
+</details>
+
 Put `.whl` file into the endstone plugins folder, and then start the server. 
 
 Enter the command `/offhand` to switch glowing items which are allowed by the server to offhand. 

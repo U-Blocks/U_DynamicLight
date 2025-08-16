@@ -15,7 +15,7 @@
 <details>
 <summary>Check your Endstone's version</summary>
 
-* **Endstone 0.10.0+
+* **Endstone 0.10.0+**
   * 250813
 * **Endstone 0.9.0 - Endstone 0.9.4**
   * 250619

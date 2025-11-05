@@ -29,7 +29,7 @@ Put `.whl` file into the endstone plugins folder, and then start the server.
 
 Enter the command `/offhand` to switch glowing items which are allowed by the server to offhand. 
 
-If a player both has glowing items in mainhand and offhand, the light emission level with be set to the greater of the two.
+If a player has glowing items in both their mainhand and offhand, the light level will be set to the greater of the two.
 
 ### 💻Download
 Now, you can get the release version form this repo or <code><a href="https://www.minebbs.com/resources/u-dynamiclight.11035/"><img height="20" src="https://github.com/umarurize/umaru-cdn/blob/main/images/minebbs.png" alt="Minebbs" /></a>&nbsp;Minebbs</code>.

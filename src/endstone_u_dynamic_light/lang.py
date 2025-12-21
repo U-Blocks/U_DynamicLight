@@ -24,15 +24,15 @@ def load_lang(lang_dir: str) -> dict:
 
     if not os.path.exists(en_US_lang_file_path):
         en_US = {
-            'form.textinput.label': 'Current light refresh interval',
+            'form.textinput.label': 'The current light refresh interval',
             'form.textinput.placeholder': 'Input a positive integer...',
             'form.submit_button': 'Reload',
             'reload.message.fail': 'The form is parsed incorrectly, please follow the prompts to fill in correctly...',
-            'reload.message.success': 'Successfully reload configurations...',
+            'reload.message.success': 'Successfully reloaded configurations...',
             'switch.message.fail_1': 'You have no item(s) in your mainhand...',
             'switch.message.fail_2': 'This item cannot be switched to offhand...',
             'switch.message.fail_3': 'The following items are allowed to be switched to offhand',
-            'switch.message.success': 'Successfully switch items to offhand...'
+            'switch.message.success': 'Successfully switched items to offhand...'
         }
         with open(en_US_lang_file_path, 'w', encoding='utf-8') as f:
             json_str = json.dumps(en_US, indent=4, ensure_ascii=False)

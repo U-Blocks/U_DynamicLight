@@ -43,34 +43,55 @@ class u_dynamic_light(Plugin):
                         'minecraft:torch': True,
                         'minecraft:soul_torch': True,
                         'minecraft:redstone_torch': True,
-                        'minecraft:shroomlight': False,
-                        'minecraft:glow_berries': False,
-                        'minecraft:glowstone': False,
-                        'minecraft:lit_pumpkin': False,
+                        "minecraft:copper_torch": True,
+
+                        'minecraft:lantern': True,
+                        'minecraft:soul_lantern': True,
+                        "minecraft:copper_lantern": True,
+                        "minecraft:exposed_copper_lantern": True,
+                        "minecraft:oxidized_copper_lantern": True,
+                        "minecraft:waxed_copper_lantern": True,
+                        "minecraft:waxed_exposed_copper_lantern": True,
+                        "minecraft:waxed_oxidized_copper_lantern": True,
+                        "minecraft:waxed_weathered_copper_lantern": True,
+                        "minecraft:weathered_copper_lantern": True,
+
+                        'minecraft:lava_bucket': True,
+
                         'minecraft:campfire': False,
                         'minecraft:soul_campfire': False,
-                        'minecraft:end_rod': False,
-                        'minecraft:lantern': False,
-                        'minecraft:soul_lantern': False,
-                        'minecraft:sea_lantern': False,
+
+                        'minecraft:beacon': False,
+                        'minecraft:enchanting_table': False,
+                        'minecraft:glowstone': False,
+                        'minecraft:lit_pumpkin': False,
+                        'minecraft:sculk_catalyst': False,
+
                         'minecraft:ochre_froglight': False,
                         'minecraft:pearlescent_froglight': False,
                         'minecraft:verdant_froglight': False,
-                        'minecraft:crying_obsidian': False,
-                        'minecraft:beacon': False,
-                        'minecraft:lava_bucket': False,
-                        'minecraft:ender_chest': False,
+
+                        'minecraft:conduit': False,
+                        'minecraft:sea_lantern': False,
+                        "minecraft:sea_pickle": False,
+
+                        'minecraft:brown_mushroom': False,
+                        'minecraft:glow_berries': False,
                         'minecraft:glow_lichen': False,
-                        'minecraft:enchanting_table': False,
+
                         'minecraft:small_amethyst_bud': False,
+                        'minecraft:medium_amethyst_bud': False,
                         'minecraft:large_amethyst_bud': False,
                         'minecraft:amethyst_cluster': False,
-                        'minecraft:brown_mushroom': False,
-                        'minecraft:sculk_catalyst': False,
-                        'minecraft:conduit': False,
-                        'minecraft:medium_amethyst_bud': False,
-                        'minecraft:dragon_egg': False,
-                        'minecraft:magma': False
+
+                        'minecraft:magma': False,
+                        'minecraft:shroomlight': False,
+                        'minecraft:crying_obsidian': False,
+
+                        'minecraft:end_rod': False,
+                        'minecraft:ender_chest': False,
+                        'minecraft:dragon_egg': False
+
                     },
                     'refresh_tick': 1
                 }
@@ -91,34 +112,54 @@ class u_dynamic_light(Plugin):
             'minecraft:torch': 14,
             'minecraft:soul_torch': 10,
             'minecraft:redstone_torch': 7,
-            'minecraft:shroomlight': 15,
-            'minecraft:glow_berries': 14,
-            'minecraft:glowstone': 15,
-            'minecraft:lit_pumpkin': 15,
-            'minecraft:campfire': 15,
-            'minecraft:soul_campfire': 10,
-            'minecraft:end_rod': 14,
+            "minecraft:copper_torch": 14,
+
             'minecraft:lantern': 15,
             'minecraft:soul_lantern': 10,
-            'minecraft:sea_lantern': 15,
+            "minecraft:copper_lantern": 15,
+            "minecraft:exposed_copper_lantern": 15,
+            "minecraft:oxidized_copper_lantern": 15,
+            "minecraft:waxed_copper_lantern": 15,
+            "minecraft:waxed_exposed_copper_lantern": 15,
+            "minecraft:waxed_oxidized_copper_lantern": 15,
+            "minecraft:waxed_weathered_copper_lantern": 15,
+            "minecraft:weathered_copper_lantern": 15,
+
+            'minecraft:lava_bucket': 15,
+
+            'minecraft:campfire': 15,
+            'minecraft:soul_campfire': 10,
+
+            'minecraft:beacon': 15,
+            'minecraft:enchanting_table': 7,
+            'minecraft:glowstone': 15,
+            'minecraft:lit_pumpkin': 15,
+            'minecraft:sculk_catalyst': 6,
+
             'minecraft:ochre_froglight': 15,
             'minecraft:pearlescent_froglight': 15,
             'minecraft:verdant_froglight': 15,
-            'minecraft:crying_obsidian': 10,
-            'minecraft:beacon': 15,
-            'minecraft:lava_bucket': 15,
-            'minecraft:ender_chest': 7,
+
+            'minecraft:conduit': 15,
+            'minecraft:sea_lantern': 15,
+            "minecraft:sea_pickle": 6,
+
+            'minecraft:brown_mushroom': 1,
+            'minecraft:glow_berries': 14,
             'minecraft:glow_lichen': 7,
-            'minecraft:enchanting_table': 7,
+
             'minecraft:small_amethyst_bud': 1,
+            'minecraft:medium_amethyst_bud': 2,
             'minecraft:large_amethyst_bud': 4,
             'minecraft:amethyst_cluster': 5,
-            'minecraft:brown_mushroom': 1,
-            'minecraft:sculk_catalyst': 6,
-            'minecraft:conduit': 15,
-            'minecraft:medium_amethyst_bud': 2,
-            'minecraft:dragon_egg': 1,
-            'minecraft:magma': 3
+
+            'minecraft:magma': 3,
+            'minecraft:shroomlight': 15,
+            'minecraft:crying_obsidian': 10,
+
+            'minecraft:end_rod': 14,
+            'minecraft:ender_chest': 7,
+            'minecraft:dragon_egg': 1
         }
 
         self.may_glowing_item_type_list = [key for key in self.may_glowing_item_type_dict.keys()]

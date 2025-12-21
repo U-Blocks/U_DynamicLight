@@ -6,7 +6,7 @@
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/umarurize/U_DynamicLight/total)
 
 ### 🔔Introductions
-* **30+ glowing items support**
+* **40+ glowing items support**
 * **Offhand mode support**
 * **Localized languages support**
 * **No damage to data**: Since dynamic light implemented through network packets delivery, it will not do any damage to your Bedrock level.
@@ -16,6 +16,7 @@
 <summary>Check your Endstone's version</summary>
 
 * **Endstone 0.10.0+**
+  * 251221 (Bedrock Edition 1.21.111+)
   * 250813
 * **Endstone 0.9.0 - Endstone 0.9.4**
   * 250619
@@ -49,37 +50,47 @@ Plugins/
 ```json5
 {
     "item_type_id_allow_in_offhand": {
-        "minecraft:torch": true,
-        "minecraft:soul_torch": true,
-        "minecraft:redstone_torch": true,
-        "minecraft:shroomlight": false,
-        "minecraft:glow_berries": false,
-        "minecraft:glowstone": false,
-        "minecraft:lit_pumpkin": false,
-        "minecraft:campfire": false,
-        "minecraft:soul_campfire": false,
-        "minecraft:end_rod": false,
-        "minecraft:lantern": true,
-        "minecraft:soul_lantern": false,
-        "minecraft:sea_lantern": false,
-        "minecraft:ochre_froglight": false,
-        "minecraft:pearlescent_froglight": false,
-        "minecraft:verdant_froglight": false,
-        "minecraft:crying_obsidian": false,
-        "minecraft:beacon": false,
-        "minecraft:lava_bucket": false,
-        "minecraft:ender_chest": false,
-        "minecraft:glow_lichen": false,
-        "minecraft:enchanting_table": false,
-        "minecraft:small_amethyst_bud": false,
-        "minecraft:large_amethyst_bud": false,
-        "minecraft:amethyst_cluster": false,
-        "minecraft:brown_mushroom": false,
-        "minecraft:sculk_catalyst": false,
-        "minecraft:conduit": false,
-        "minecraft:medium_amethyst_bud": false,
-        "minecraft:dragon_egg": false,
-        "minecraft:magma": false
+      "minecraft:torch": true,
+      "minecraft:soul_torch": true,
+      "minecraft:redstone_torch": true,
+      "minecraft:copper_torch": true,
+      "minecraft:lantern": true,
+      "minecraft:soul_lantern": true,
+      "minecraft:copper_lantern": true,
+      "minecraft:exposed_copper_lantern": true,
+      "minecraft:oxidized_copper_lantern": true,
+      "minecraft:waxed_copper_lantern": true,
+      "minecraft:waxed_exposed_copper_lantern": true,
+      "minecraft:waxed_oxidized_copper_lantern": true,
+      "minecraft:waxed_weathered_copper_lantern": true,
+      "minecraft:weathered_copper_lantern": true,
+      "minecraft:lava_bucket": true,
+      "minecraft:campfire": false,
+      "minecraft:soul_campfire": false,
+      "minecraft:beacon": false,
+      "minecraft:enchanting_table": false,
+      "minecraft:glowstone": false,
+      "minecraft:lit_pumpkin": false,
+      "minecraft:sculk_catalyst": false,
+      "minecraft:ochre_froglight": false,
+      "minecraft:pearlescent_froglight": false,
+      "minecraft:verdant_froglight": false,
+      "minecraft:conduit": false,
+      "minecraft:sea_lantern": false,
+      "minecraft:sea_pickle": false,
+      "minecraft:brown_mushroom": false,
+      "minecraft:glow_berries": false,
+      "minecraft:glow_lichen": false,
+      "minecraft:small_amethyst_bud": false,
+      "minecraft:medium_amethyst_bud": false,
+      "minecraft:large_amethyst_bud": false,
+      "minecraft:amethyst_cluster": false,
+      "minecraft:magma": false,
+      "minecraft:shroomlight": false,
+      "minecraft:crying_obsidian": false,
+      "minecraft:end_rod": false,
+      "minecraft:ender_chest": false,
+      "minecraft:dragon_egg": false
     },
     "refresh_tick": 1    // light refresh interval in ticks
 }
@@ -90,7 +101,7 @@ Operators can enter the command `/ud` to call out the GUI form to edit/update co
 - [x] `zh_CN`
 - [x] `en_US`
 
-Off course you can add your mother language to U-DynamicLight, just creat `XX_XX.json` (such as `ja_JP.json`) and translate value with reference to `en_US.json`.
+Off course, you can add your mother language to U-DynamicLight, just creat `XX_XX.json` (such as `ja_JP.json`) and translate value with reference to `en_US.json`.
 
 You can also creat a PR to this repo to make your mother language one of the official languages of U-DynamicLight.
 

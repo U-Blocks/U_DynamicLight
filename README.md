@@ -14,17 +14,22 @@
 ### 🔨Installation
 <details>
 <summary>Check your Endstone's version</summary>
-    
-- [x] U-DynamicLight [<250619] adapts Endstone 0.7.2 - 0.8.2
-- [x] U-DynamicLight [>=250619] adapts Endstone 0.9.0+
 
+* **Endstone 0.10.0+**
+  * 250813
+* **Endstone 0.9.0 - Endstone 0.9.4**
+  * 250619
+* **Endstone 0.7.2 - Endstone 0.8.2**
+  * 250415
+  * 250414
+    
 </details>
 
 Put `.whl` file into the endstone plugins folder, and then start the server. 
 
 Enter the command `/offhand` to switch glowing items which are allowed by the server to offhand. 
 
-If a player both has glowing items in mainhand and offhand, the light emission level with be set to the greater of the two.
+If a player has glowing items in both their mainhand and offhand, the light level will be set to the greater of the two.
 
 ### 💻Download
 Now, you can get the release version form this repo or <code><a href="https://www.minebbs.com/resources/u-dynamiclight.11035/"><img height="20" src="https://github.com/umarurize/umaru-cdn/blob/main/images/minebbs.png" alt="Minebbs" /></a>&nbsp;Minebbs</code>.
@@ -43,14 +48,43 @@ Plugins/
 `config.json`
 ```json5
 {
-    "item_allow_offhand": [
-        "minecraft:torch",
-        "minecraft:soul_torch"
-    ],  // items are allowed to be switched to offhand
-    "refresh_tick": 20 // light refresh interval in ticks
+    "item_type_id_allow_in_offhand": {
+        "minecraft:torch": true,
+        "minecraft:soul_torch": true,
+        "minecraft:redstone_torch": true,
+        "minecraft:shroomlight": false,
+        "minecraft:glow_berries": false,
+        "minecraft:glowstone": false,
+        "minecraft:lit_pumpkin": false,
+        "minecraft:campfire": false,
+        "minecraft:soul_campfire": false,
+        "minecraft:end_rod": false,
+        "minecraft:lantern": true,
+        "minecraft:soul_lantern": false,
+        "minecraft:sea_lantern": false,
+        "minecraft:ochre_froglight": false,
+        "minecraft:pearlescent_froglight": false,
+        "minecraft:verdant_froglight": false,
+        "minecraft:crying_obsidian": false,
+        "minecraft:beacon": false,
+        "minecraft:lava_bucket": false,
+        "minecraft:ender_chest": false,
+        "minecraft:glow_lichen": false,
+        "minecraft:enchanting_table": false,
+        "minecraft:small_amethyst_bud": false,
+        "minecraft:large_amethyst_bud": false,
+        "minecraft:amethyst_cluster": false,
+        "minecraft:brown_mushroom": false,
+        "minecraft:sculk_catalyst": false,
+        "minecraft:conduit": false,
+        "minecraft:medium_amethyst_bud": false,
+        "minecraft:dragon_egg": false,
+        "minecraft:magma": false
+    },
+    "refresh_tick": 1    // light refresh interval in ticks
 }
 ```
-Server owner can edit and save `config.json`，and enter the command `/ud` to reload configurations/
+Operators can enter the command `/ud` to call out the GUI form to edit/update configurations in detail.
 
 ### 🌐Languages
 - [x] `zh_CN`

@@ -1,6 +1,6 @@
 ## U-DynamicLight
 
-<code><a href="https://github.com/umarurize/UTP"><img height="25" src="https://github.com/umarurize/U_DynamicLight/blob/master/logo/logo.png" alt="U-DynamicLight" /></a>&nbsp;U-DynamicLight</code>
+<code><a href="https://github.com/umarurize/UTP"><img height="25" src="./logo/logo.png" alt="U-DynamicLight" /></a>&nbsp;U-DynamicLight</code>
 
 ![Total Git clones](https://img.shields.io/badge/dynamic/json?label=Total%20Git%20clones&query=$&url=https://cdn.jsdelivr.net/gh/umarurize/U_DynamicLight@master/clone_count.txt&color=brightgreen)
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/umarurize/U_DynamicLight/total)
@@ -33,7 +33,7 @@ Enter the command `/offhand` to switch glowing items which are allowed by the se
 If a player has glowing items in both their mainhand and offhand, the light level will be set to the greater of the two.
 
 ### 💻Download
-Now, you can get the release version form this repo or <code><a href="https://www.minebbs.com/resources/u-dynamiclight.11035/"><img height="20" src="https://github.com/umarurize/umaru-cdn/blob/main/images/minebbs.png" alt="Minebbs" /></a>&nbsp;Minebbs</code>.
+Now, you can get the release version form this repo or <code><a href="https://www.minebbs.com/resources/u-dynamiclight.11035/"><img height="20" src="./logo/minebbs.png" alt="Minebbs" /></a>&nbsp;Minebbs</code>.
 
 ### 📁File structure
 ```
@@ -101,13 +101,13 @@ Operators can enter the command `/ud` to call out the GUI form to edit/update co
 - [x] `zh_CN`
 - [x] `en_US`
 
-Off course, you can add your mother language to U-DynamicLight, just creat `XX_XX.json` (such as `ja_JP.json`) and translate value with reference to `en_US.json`.
+Of course, you can add your mother language to U-DynamicLight, just creat `XX_XX.json` (such as `ja_JP.json`) and translate value with reference to `en_US.json`.
 
 You can also creat a PR to this repo to make your mother language one of the official languages of U-DynamicLight.
 
 ### 💥Glowing items
 <div style="width: 100%; text-align: center;">
-  <img src="https://github.com/umarurize/U_DynamicLight/blob/master/images/item_list.png" style="max-width: 100%; height: auto;">
+  <img src="./images/item_list.png" style="max-width: 100%; height: auto;">
 </div>
 
 ### :heart_eyes:Specially thanks

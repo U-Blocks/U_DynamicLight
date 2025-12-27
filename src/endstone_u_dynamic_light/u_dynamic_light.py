@@ -91,7 +91,6 @@ class u_dynamic_light(Plugin):
                         'minecraft:end_rod': False,
                         'minecraft:ender_chest': False,
                         'minecraft:dragon_egg': False
-
                     },
                     'refresh_tick': 1
                 }

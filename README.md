@@ -1,5 +1,3 @@
-## U-DynamicLight
-
 <code><a href="https://github.com/umarurize/U_DynamicLight"><img height="25" src="./logo/logo.png" alt="U-DynamicLight" /></a>&nbsp;U-DynamicLight</code>
 
 ![Total Git clones](https://img.shields.io/badge/dynamic/json?label=Total%20Git%20clones&query=$&url=https://cdn.jsdelivr.net/gh/umarurize/U_DynamicLight@master/clone_count.txt&color=brightgreen)

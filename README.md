@@ -48,7 +48,7 @@
    1. Enter the command `/ud` to call out the main form of U-DynamicLight
    2. Enter the command `/offhand` to switch glowing items which are allowed by the server to offhand.
 
-*Tips: If a player has glowing items in both their mainhand and offhand, the light level will be set to the greater of the two.* 
+**Tips**: *If a player has glowing items in both their mainhand and offhand, the light level will be set to the greater of the two.* 
 
 ***
 

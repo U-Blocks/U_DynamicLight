@@ -29,7 +29,7 @@ def load_lang(lang_dir: str) -> dict:
             'form.submit_button': 'Reload',
             'reload.message.fail': 'The form is parsed incorrectly, please follow the prompts to fill in correctly...',
             'reload.message.success': 'Successfully reloaded configurations...',
-            'switch.message.fail_1': 'You have no item(s) in your mainhand...',
+            'switch.message.fail_1': 'You have no item(s) in your main hand...',
             'switch.message.fail_2': 'This item cannot be switched to offhand...',
             'switch.message.fail_3': 'The following items are allowed to be switched to offhand',
             'switch.message.success': 'Successfully switched items to offhand...'

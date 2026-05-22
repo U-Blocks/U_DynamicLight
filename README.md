@@ -22,7 +22,9 @@
 <details>
 <summary>Check your Endstone's version</summary>
 
-* **Endstone 0.10.0+**
+* **Endstone 0.10.0 - unknown version**
+  * 260522
+* **Endstone 0.10.0 - unknown version**
   * 251221 (Bedrock Edition 1.21.111+)
   * 250813
 * **Endstone 0.9.0 - Endstone 0.9.4**
